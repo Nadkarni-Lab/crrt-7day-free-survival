@@ -34,3 +34,9 @@ A patient was considered to have achieved CRRT-free survival after 7 days if all
 A patient was considered not achieving CRRT-free survival at 7 days if either of the following was true:
 1. Ongoing CRRT treatment at Day 7
 2. Death before the end of Day 7
+
+## Pre-Processing and Cleaning Data
+Read `preprocessing_instructions.md` within `docs/` for **feature** pre-processing and cleaning.
+
+### Date Standardization
+All timestamps were standardized to calendar dates by removing the time component to ensure consistency across the dataset. For example, a CRRT initiation timestamp of May 5, 12:30 was recorded as May 5 (May 5 00:00). This standardization was applied consistently across all patients and data sources.
