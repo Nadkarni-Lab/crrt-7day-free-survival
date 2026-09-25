@@ -94,8 +94,12 @@ The `data_quality_assurance` sheet documents features for which values are clipp
 ## Instructions to Pre-Process Data
 After extracting the required data and completed `configs/center_mapping.xlsx`, run the provided preprocessing pipeline.
 
-### 1. Run the preprocessing script
-Run the script from the project environment using the appropriate prepreocessing mode.
+The preprocessing pipeline consists of two stages:
+1. **Standardize the source data** into the format expected by the model.
+2. **Generate rolling features** to create the final dataset ingested by the model.
+
+### 1. Standardize the Source Data
+Run the script from the project environment using the appropriate preprocessing mode.
 
 For fine-tuning the pretrained CRRTnet model:
 ```
@@ -106,7 +110,7 @@ For training a new model using all candidate features:
 python src/preprocessing.py --mode train --multi-select-delimiter ","
 ```
 If your multi-selection variable use a delimiter other than a comma, replace "," with the delimiter used in your source data.
-### 2. Resolve preprocessing errors
+#### Resolve preprocessing errors
 The preprocessing pipeline validates the center mapping and source data before and during preprocessing. If an error occurs, review the error message, correct the source data or `center_mapping.xlsx` and rerun the script.
 
 The pieplien checks for common mapping and data-format issues, including:
@@ -116,9 +120,32 @@ The pieplien checks for common mapping and data-format issues, including:
 - invalid categoriccal values
 - invalid multi-selection values
 - duplicate patient identifiers in static-variable files
-### 3. Locate the output
+#### Intermediate Output
 After preprocessing completes successfully, the output will be written to:
 ```
 data/outputs/transformed_features.csv
 ```
 This file will then be used to input into CRRTnet fine-tuning or model-training pipeline.
+
+### 2. Generate Rolling Features
+The standardized data must be converted into rolling feature representation expected by the model.
+
+Run:
+```
+python src/generate_rolling_features.py --mode finetune
+```
+
+The script will read: `data/outputs/transformed_features.csv` and use the predefined feature configuration in: `configs/finetune_column_category.csv` to identify static and dynamic variables and apply the appropriate missing-value handling.
+
+#### Dynamic Features
+For numerical dynamic variables, the pipeline calculates: mean, median, standard deviation, variance, maximum, minimum, mean change, mean absolute change, and root mean square.
+
+For categorical dynamic variables, the pipeline calculates: mode, categorical entropy, and number of transitions.
+
+Static variables are not rolled and are merged with rolling dynamice features for each patient-day
+#### Final Model Input
+The complete rolling feature dataset is written to: `data/outputs/final_features_rolled.csv`
+
+For fine-tuning, the pipeline then selects the features required by the pretrained CRRTnet model according to: `configs/finetune_model_final_variables.csv`. The final model input dataset is written to: `data/outputs/model_input.csv`
+
+Once `model_input.csv` has been generated successfully, preprocessing is complete. Proceed to either the training or fine-tuning step.

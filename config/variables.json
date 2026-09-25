@@ -1,0 +1,2102 @@
+{
+	"datasets": [
+		{
+			"dataset": "patient_information",
+			"description": "Patient identifiers and dates.",
+			"variables":[
+                {
+                    "name": "PID",
+                    "description": "Unique patient ID",
+                    "data_type": "numerical"
+                },
+                {
+                    "name": "Age",
+                    "description": "Patient Age",
+                    "data_type": "numerical"
+                },
+                {
+                    "name": "Gender",
+                    "description": "Patient Gender",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Male": 1, "Female": 0},
+							"accepted_values": ["Male", "Female"]
+                        }
+                    },
+                    "variable_rename": "Gender_Male"
+                },
+                {
+                    "name": "HospitalAdmitDate",
+                    "description": "Hospital Admission date",
+                    "data_type": "date",
+                    "transformation":{
+                        "transformation_type": "datetime_conversion"
+                    }
+                },
+                {
+                    "name": "IcuAdmitDate",
+                    "description": "ICU admission date corresponding to CRRT session",
+                    "data_type": "date",
+                    "transformation":{
+                        "transformation_type": "datetime_conversion"
+                    }
+                },
+                {
+                    "name": "IcuDischargeDate",
+                    "description": "ICU discharge date corresponding to CRRT session",
+                    "data_type": "date",
+                    "transformation":{
+                        "transformation_type": "datetime_conversion"
+                    }
+                },
+                {
+                    "name": "CrrtStartDate",
+                    "description": "CRRT start date",
+                    "data_type": "date",
+                    "transformation":{
+                        "transformation_type": "datetime_conversion"
+                    }
+                },
+                {
+                    "name": "CrrtEndDate",
+                    "description": "CRRT end date",
+                    "data_type": "date",
+                    "transformation":{
+                        "transformation_type": "datetime_conversion"
+                    }
+                },
+                {
+                    "name": "CrrtInitiationWeight",
+                    "description": "Weight closest to CRRT initiation",
+                    "data_type": "numerical",
+					"transformation": {
+						"transformation_type": "unit_conversion",
+						"options": {
+							"accepted_units": ["ounces", "lb", "kg"],
+							"target_unit": "kg",
+							"unit_family": "weight"
+						}
+					},
+					"variable_rename": "CrrtInitiationWeight_kg"
+                },
+                {
+                    "name": "PatientHeight",
+                    "description": "Patient height",
+                    "data_type": "numerical",
+                    "variable_rename": "PatientHeight_cm",
+					"transformation": {
+						"transformation_type": "unit_conversion",
+						"options": {
+							"accepted_units": ["cm", "m", "feet", "inches"],
+							"target_unit": "m",
+							"unit_family": "height"
+						}
+					}
+                },
+				{
+					"name": "DAY7_Outcome",
+					"description": "Did the patient reach CRRT-Free survival on day 7?",
+					"data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+				}
+			]
+		},
+		{
+			"dataset": "static_variables",
+			"description": "All static variables used for the model.",
+			"variables": [
+                {
+                    "name": "DiabetesMellitus",
+                    "description": "Diagnosis: Diabetes Mellitus (Uncomplicated)",
+                    "data_type":"categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "MyocardialInfarction",
+                    "description": "Diagnosis: Myocardial Infarction",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "PeripheralVascularDisease",
+                    "description": "Diagnosis: Peripheral Vascular Disease",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "Dementia",
+                    "description": "Diagnosis: Dementia",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "ChronicPulmonaryDisease",
+                    "description": "Diagnosis: Chronic Pulmonary Disease",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "ConnectiveTissueDisease",
+                    "description": "Diagnosis: Connective Tissue Disease",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "CongestiveHeartFailure",
+                    "description": "Diagnosis: Congestive Heart Fialure",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "PepticUlcerDisease",
+                    "description": "Diagnosis: Peptic Ulcer Disease",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "MildLiverDisease",
+                    "description": "Diagnosis: Mild Liver Disease",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "Hemiplegia",
+                    "description": "Diagnosis: Hemiplegia",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "ModerateOrSevereRenalDisease",
+                    "description": "Diagnosis: Moderate or Severe Renal Disease",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "DiabetesWithEndOrganDamage",
+                    "description": "Diagnosis: Diabetes with End Organ Damage",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "AnyTumour",
+                    "description": "Diagnosis: Any Tumor",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "Leukemia",
+                    "description": "Diagnosis: Leukemia",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "Lymphoma",
+                    "description": "Diagnosis: Lymphoma",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "ModerateOrSevereLiverDisease",
+                    "description": "Diagnosis: Moderate or Severe Liver Disease",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "MetastaticTumor",
+                    "description": "Diagnosis: Metastatic Tumor",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "AIDS",
+                    "description": "Diagnosis: AIDS",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "AdmissionSourceInsideHospital",
+                    "description": "Admission Source Inside Hospital to ICU",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Emergency", "Floor/Ward", "ICU", "Transferred From Outside Hospital", "Other"]
+						}
+                    }
+                },
+                {
+                    "name": "AdmissionSourceOutsideHospital",
+                    "description": "Admission Source Outside Hospital to In-Hospital ICU",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Emergency and Other", "Floor/Ward", "ICU"]
+						}
+                    }
+                },
+                {
+                    "name": "IcuAdmissionTemperature",
+                    "description": "Patient Temperature at ICU admit",
+                    "data_type": "numerical",
+                    "variable_rename": "IcuAdmissionTemperature_C",
+					"transformation": {
+						"transformation_type": "unit_conversion",
+						"options": {
+							"accepted_units": ["F", "C"],
+							"target_unit": "C",
+							"unit_family": "temperature"
+						}
+					}
+                },
+                {
+                    "name": "Sepsis",
+                    "description": "PrimaryDiagnosis/Secondary Diagnosis  = sepsis",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "RespFail",
+                    "description": "PrimaryDiagnosis/Secondary Diagnosis = Respiratory Failure, subtype selected",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "CardiovascularEmer",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Cardiovascular Emergency",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "Transplant",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Post Transplant Surgery",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "Poison",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Poisoning/Overdose",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "GastroEmer",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Gastrointestinal Emergency",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "AcuteLiver",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Acute/Decompensated Liver Failure",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "Endocrine",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Endocrine Emergency",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "AcuteKidneyInjury",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Acute Kidney Injury",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "NeuroEmer",
+                    "description": "If PrimaryDiagnosis/Secondary Diagnosis = Neurologic Emergency",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "PostSurgery",
+                    "variable_info": "If PrimaryDianosis = Post Surgery",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "OtherPrimarySecondayDiagnosis",
+                    "description": "Primary Diagnosis/Secondary Diagnosis = Other",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "PatientHistoryOrganInsufImmuno",
+                    "description": "History of chronic organ insufficiency or immunocompromise",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["No", "Yes - is s/p elective surgery", 
+								"Yes - is s/p emergency", "Yes - not s/p operation"]
+						}
+                    }
+                },
+                {
+                    "name": "EmergencySurgery",
+                    "description": "If Emergency Surgery was performed or not",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "EmergencySurgeryReason",
+                    "description": "Reason for Emergency Surgery",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "multi_select",
+                        "options": {
+							"accepted_values": ["Cardiovascular/Thoracic", "Gastrointestinal", "Neurosurgical", "Orthopedic", "Transplant", "Urologic", "Other"]
+						}
+                   }
+                },
+                {
+                    "name": "Trauma",
+                    "description": "Did the patient suffer trauma?",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+				},
+                {
+                    "name": "TraumaReason",
+                    "description": "Reason for trauma",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Blunt Trauma", "Burn Injury", "Fall Injury", 
+								"Gunshot Wound", "MVC", "Pedestrian Injured", "Other"]	
+						}
+                    }
+                },
+                {
+                    "name": "PriorRenalRt",
+                    "description": "Any prior Renal RT",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "PriorRenalRtSpecify",
+                    "description": "Specify: PD, HD, SLED, CRRT",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+                        "options": {
+							"accepted_values": ["HD", "CRRT"]
+                        }
+                    }
+                },
+                {
+                    "name": "SuspectedCovid19",
+                    "description": "Is the patient suspected to have COVID-19",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "PositiveCovid19",
+                    "description": "Is the patient positive for COVID-19",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                }
+			]
+		},
+		{
+			"dataset": "longitudinal_variables",
+			"description": "All longitudinal variables used for the model.",
+			"variables": [
+                {
+                    "name": "WhiteCellCount",
+                    "description": "WhiteCellCount",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["10^3/uL", "10^9/L"],
+							"target_unit": "10^3/uL",
+							"unit_family": "blood_count"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 0, "max": 100}	
+					},
+					"daily_aggregation": ["mean", "max"],
+                    "variable_rename": "WhiteCellCountUs"
+                },
+                {
+                    "name": "Phosphate",
+                    "description": "Phosphate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "phosphate"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 0.5, "max": 15}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "PhosphateUs"
+                },
+                {
+                    "name": "Hemoglobin",
+                    "description": "Hemoglobin",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["g/L", "g/dL"],
+							"target_unit": "g/dL",
+							"unit_family": "hgb"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 25}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "HemoglobinUs"
+                },
+                {
+                    "name": "Magnesium",
+                    "description": "Magnesium ",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+                            "accepted_units": ["mmol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "magnesium"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 5}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "MagnesiumUs"
+                },
+                {
+                    "name": "Hematocrit",
+                    "description": "Hematocrit",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["%"],
+							"target_unit": "%",
+							"unit_family": "hct"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 75}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "HematocritUs"
+                },
+                {
+                    "name": "CalciumTotal",
+                    "description": "CalciumTotal",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "calcium"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 20}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "CalciumTotalUs"
+				},
+                {
+                    "name": "Platelets",
+                    "description": "Platelets",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["10^3/uL", "10^9/L"],
+							"target_unit": "10^3/uL",
+							"unit_family": "blood_count"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 10, "max": 1000}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "PlateletsUs"
+                },
+                {
+                    "name": "CalciumIonized",
+                    "description": "CalciumIonized",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "calcium"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 10}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "CalciumIonizedUs"
+                },
+                {
+                    "name": "INR",
+                    "description": "INR",
+                    "data_type": "numerical",
+					"further_processing": {
+						"data_threshold": {"min": 0.8, "max": 15}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "INRUs"
+                },
+                {
+                    "name": "Albumin",
+                    "description": "Albumin",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["g/L", "g/dL"],
+							"target_unit": "g/dL",
+							"unit_family": "albumin"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 40}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "AlbuminUs"
+                },
+                {
+                    "name": "PTT",
+                    "description": "PTT",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["seconds"],
+							"target_unit": "seconds",
+							"unit_family": "ptt"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 10, "max": 100}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "PTTUs"
+                },
+                {
+                    "name": "Bilirubin",
+                    "description": "Bilirubin",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["umol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "bilirubin"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 0.1, "max": 50}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "BilirubinUs"
+                },
+                {
+                    "name": "Sodium",
+                    "description": "Sodium",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mEq/L"],
+							"target_unit": "mEq/L",
+							"unit_family": "monovalent_ion"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 90, "max": 180}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "SodiumUs"
+                },
+                {
+                    "name": "pH",
+                    "description": "pH",
+                    "data_type": "numerical",
+					"further_processing": {
+						"data_threshold": {"min": 6.8, "max": 7.8}
+					},
+					"daily_aggregation": ["min", "max", "mean"],
+                    "variable_rename": "pHUs"
+                },
+                {
+                    "name": "Potassium",
+                    "description": "Potassium",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mEq/L"],
+							"target_unit": "mEq/L",
+							"unit_family": "monovalent_ion"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 10}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "PotassiumUs"
+                },
+                {
+                    "name": "FiO2",
+                    "description": "FiO2",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["%"],
+							"target_unit": "%",
+							"unit_family": "fio2"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 21,  "max": 100}
+					},
+					"daily_aggregation": ["min", "max", "mean"],
+                    "variable_rename": "FiO2Us"
+                },
+                {
+                    "name": "Bicarbonate",
+                    "description": "Bicarbonate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mEq/L"],
+							"target_unit": "mEq/L",
+							"unit_family": "monovalent_ion"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 1, "max": 50}
+					},
+					"daily_aggregation": ["min", "max", "mean"],
+                    "variable_rename": "BicarbonateUs"
+                },
+                {
+                    "name": "PaO2",
+                    "description": "PaO2",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmHg"],
+							"target_unit": "mmHg",
+							"unit_family": "pressure"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 10, "max": 250}
+					},
+					"daily_aggregation": ["min", "max", "mean"], 
+                    "variable_rename": "PaO2Us"
+                },
+                {
+                    "name": "Chloride",
+                    "description": "Chloride",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mEq/L"],
+							"target_unit": "mEq/L",
+							"unit_family": "monovalent_ion"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 80, "max": 130}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "ChlorideUs"
+                },
+                {
+                    "name": "PaCO2",
+                    "description": "PaCO2",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmHg"],
+							"target_unit": "mmHg",
+							"unit_family": "pressure"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 5, "max": 100}
+					},
+					"daily_aggregation": ["min", "max", "mean"],
+                    "variable_rename": "PaCO2Us"
+                },
+                {
+                    "name": "Urea",
+                    "description": "Urea",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "urea"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 2.8, "max": 560}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "UreaUs"
+                },
+                {
+                    "name": "Creatinine",
+                    "description": "Creatinine",
+                    "data_type": "numerical",
+					"store_long_term_raw": true,
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["umol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "creatinine"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 0.3, "max": 50}
+					},
+					"daily_aggregation": ["mean"],
+                    "variable_rename": "CreatinineUs"
+                },
+                {
+                    "name": "Lactate",
+                    "description": "Lactate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mmol/L", "mg/dL"],
+							"target_unit": "mg/dL",
+							"unit_family": "lactate"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 0.1, "max": 1000}
+					},
+					"daily_aggregation": ["min", "max", "mean"],
+                    "variable_rename": "LactateUs"
+                },
+                {
+                    "name": "SaO2",
+                    "description": "SaO2",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["%"],
+							"target_unit": "%",
+							"unit_family": "sao2"
+                        }
+                    },
+					"further_processing": {
+						"data_threshold": {"min": 0, "max": 100}
+					},
+					"daily_aggregation": ["min", "max", "mean"],
+                    "variable_rename": "SaO2Us"
+                },
+                {
+                    "name": "NeuroGcs",
+                    "description": "Neuro GCS",
+                    "data_type": "numerical",
+					"further_processing": {
+						"data_threshold": {"min": 3, "max": 15}
+					},
+					"daily_aggregation": ["min", "mean"]
+                },
+                {
+                    "name": "HeartRate",
+                    "description": "Heart rate (bpm)",
+                    "data_type": "numerical",
+					"further_processing": {
+						"data_threshold": {"min": 0, "max": 250}
+					},
+					"daily_aggregation": ["mean", "min", "max", "std"]
+                },
+                {
+                    "name": "RespiratoryRate",
+                    "description": "Respiratory rate (bpm)",
+                    "data_type": "numerical",
+					"further_processing": {
+						"data_threshold": {"min": 0, "max": 50}
+					},
+					"daily_aggregation": ["mean", "min", "max", "std"]
+                },
+                {
+                    "name": "MeanArterialPressure",
+                    "description": "Mean arterial pressure (mmHg)",
+                    "data_type": "numerical",
+					"further_processing": {
+						"data_threshold": {"min": 0, "max": 200}
+					},
+					"daily_aggregation": ["mean", "min", "max", "std"]
+                },
+                {
+                    "name": "CentralVenousPressure",
+                    "description": "Central venous pressure (mmHg)",
+                    "data_type": "numerical",
+					"further_processing": {
+						"data_threshold": {"min": 0, "max": 30}
+					},
+					"daily_aggregation": ["mean", "min", "max"]
+                },
+                {
+                    "name": "NorepinephrineDripRate_adj",
+                    "description": "Norepinephrine rate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mcg/kg/min", "mcg/min", "mcg/hr", "mcg/kg/hr"],
+							"target_unit": "mcg/kg/min",
+							"unit_family": "vasopressor"
+                        }
+                    },
+					"further_processing": {
+						"data_clipping": {"min": 0, "max": 3}
+					},
+					"daily_aggregation": ["mean", "max"]
+                },
+                {
+                    "name": "VasopressinDripRate_adj",
+                    "description": "Vasopressin rate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["units/min", "units/hr", "units/s"],
+							"target_unit": "units/min",
+							"unit_family": "vasopressor"
+                        }
+                    },
+					"further_processing": {
+						"rules": [
+							{
+								"condition": {"gt": 0.04},
+								"action": {"type": "set", "value": 0.05}
+							},
+							{
+								"condition": {"lt": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					},
+					"daily_aggregation": ["mean", "max"]
+                },
+                {
+                    "name": "EpinephrineDripRate_adj",
+                    "description": "Epinephrine rate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mcg/kg/min", "mcg/min", "mcg/hr", "mcg/kg/hr"],
+							"target_unit": "mcg/kg/min",
+							"unit_family": "vasopressor"
+                        }
+                    },
+					"further_processing": {
+						"data_clipping": {"min": 0, "max": 2}
+					},
+					"daily_aggregation": ["mean", "max"]
+                },
+                {
+                    "name": "PhenylephrineDripRate_adj",
+                    "description": "Phenylephrine",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mcg/kg/min", "mcg/min", "mcg/hr", "mcg/kg/hr"],
+							"target_unit": "mcg/kg/min",
+							"unit_family": "vasopressor"
+                        }
+                    },
+					"further_processing": {
+						"data_clipping": {"min": 0, "max": 6}
+					},
+					"daily_aggregation": ["mean", "max"]
+                },
+                {
+                    "name": "MilrinoneDripRate_adj",
+                    "description": "Milrinone",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mcg/kg/min", "mcg/min", "mcg/hr", "mcg/kg/hr"],
+							"target_unit": "mcg/kg/min",
+							"unit_family": "vasopressor"
+                        }
+                    },
+					"further_processing": {
+						"data_clipping": {"min": 0, "max": 0.75}
+					},
+					"daily_aggregation": ["mean", "max"]
+                },
+                {
+                    "name": "DobutamineDripRate_adj",
+                    "description": "Dobutamine rate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mcg/kg/min", "mcg/min", "mcg/hr", "mcg/kg/hr"],
+							"target_unit": "mcg/kg/min",
+							"unit_family": "vasopressor"
+                        }
+                    },
+					"further_processing": {
+						"data_clipping": {"min": 0, "max": 40}
+					},
+					"daily_aggregation": ["mean", "max"]
+                },
+                {
+                    "name": "DopamineDripRate_adj",
+                    "description": "Dopamine rate",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mcg/kg/min", "mcg/min", "mcg/hr", "mcg/kg/hr"],
+							"target_unit": "mcg/kg/min",
+							"unit_family": "vasopressor"
+                        }
+                    },
+					"further_processing": {
+						"data_clipping": {"min": 0, "max": 50}
+					},
+					"daily_aggregation": ["mean", "max"]
+                },
+                {
+                    "name": "MechanicalVentilation",
+                    "description": "Mechanical ventilation: Yes/No",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "PEEP",
+                    "description": "Positive end-expiratory pressure",
+                    "data_type": "numerical"
+                },
+                {
+                    "name": "ECMO",
+                    "description": "ECMO: Yes/No",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "BiologicFluidIntake",
+                    "description": "All Fluid Intake",
+                    "data_type": "numerical",
+					"store_long_term": true,
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"BiologicFluidIntake_sum": "BiologicFluidIntake"}
+                },
+                {
+                    "name": "EnteralNutritional",
+                    "description": "Volume of enteral nutrition",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"EnteralNutritional_sum": "EnteralNutritional"}
+                },
+                {
+                    "name": "ParenteralNutritional",
+                    "description": "Volume of Parenteral nutritional",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"ParenteralNutritional_sum": "ParenteralNutritional"}
+                },
+                {
+                    "name": "ChestTube", 
+                    "description": "Voulme from Chest tube",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"ChestTube_sum": "ChestTube"}
+                },
+                {
+                    "name": "Drained",
+                    "description": "Drained volume",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"Drained_sum": "Drained"}
+                },
+                {
+                    "name": "BloodLoss",
+                    "description": "Blood loss",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"BloodLoss_sum": "BloodLoss"}
+                },
+                {
+                    "name": "UrineOutput",
+                    "description": "Urine output",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"UrineOutput_sum": "UrineOutput"}
+                },
+                {
+                    "name": "CrrtNetUF",
+                    "description": "CRRT net UF",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"CrrtNetUF_sum": "CrrtNetUF"}
+                },
+                {
+                    "name": "NasogastricOutput",
+                    "description": "Volume of Nasogastric output",
+                    "data_type": "numerical",
+                    "transformation": {
+                        "transformation_type": "unit_conversion",
+                        "options": {
+							"accepted_units": ["mL", "L"],
+							"target_unit": "L",
+							"unit_family": "volume"
+                        }
+                    },
+					"daily_aggregation": ["sum"],
+					"output_names": {"NasogastricOutput_sum": "NasogastricOutput"}
+                },
+                {
+                    "name": "ElectrolyteSupplementation",
+                    "description": "Electrolyte supplementation: Calcium, Magnesium, Potassium, Phosphate, Other",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "multi_select",
+                        "options": {
+                            "delimiter": ",",
+							"accepted_values": ["Calcium", "Magnesium", "Potassium", "Phosphate", "Other"]
+                        }
+                    }
+                },
+                {
+                    "name": "Diuretics",
+                    "description": "Diuretics: Yes/No",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "EntericNutrition",
+                    "description": "Enteric nutrition: Yes/No",
+                    "data_type": "categorical", 
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "TotalCaloriesPerDay",
+                    "description": "Total calories per day (Kcal/day)",
+                    "data_type": "numerical",
+					"daily_aggregation": ["sum"]
+                },
+                {
+                    "name": "TotalProteinPer12HourPeriod",
+                    "description": "Total protein per 12 hours (g/kg/day)",
+                    "data_type": "numerical",
+					"daily_aggregation": ["sum"]
+                },
+                {
+                    "name": "TotalVolumePer12HourPeriod",
+                    "description": "Total parenteral nutrition volume per 12 hr (mL/h)",
+                    "data_type": "numerical",
+					"daily_aggregation": ["sum"]
+                },
+                {
+                    "name": "CRRTFluidRemoval",
+                    "description": "CRRT Fluid removal",
+                    "data_type": "numerical",
+					"daily_aggregation": ["sum"]
+                },
+                {
+                    "name": "CatheterPosition",
+                    "description": "Catheter position: Left IJ, Right IJ, EJ, SCV, Femoral, ECMO, Other",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"accepted_values": ["Left IJ", "Right IJ", "EJ", "SCV", "Femoral", "ECMO", "Other"]
+                    }
+                },
+                {
+                    "name": "CatheterReposition",
+                    "description": "Catheter reposition: Yes/No",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "CatheterRewiring",
+                    "description": "Catheter rewiring: Yes/No",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "CatheterReinsert",
+                    "description": "Catheter reinsert: Yes/No",
+                    "data_type": "categorical", 
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "CatheterReinsertReason",
+                    "description": "Catheter reinsert reason",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Access Failure", "ECMO placement", 
+								"Switching to long-term catheter", "Treatment duration", "Other"]	
+						}
+                    }
+                },
+                {
+                    "name": "CircuitDiscountIn12HourPeriod",
+                    "description": "Discontinuation in 12 hours: Yes/No",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "DiscontinuationReason",
+                    "description": "Discontinuation reason: Patient reason, Machine reason",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Machine Reason", "Patient Reason"]
+						}
+                    }
+                },
+                {
+                    "name": "DiscontinuationReasonSpecify",
+                    "description": "Specify discontinuation reason",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Access Malfunction (Excessive Pressure)", 
+								"Filter Clogged", "Limit_Withdraw_Life_Support", 
+								"Machine Malfunction", "Patient to OR - Planned", 
+								"Patient to Test - Planned", "Schedule_Changed", "Other"]
+						}
+                    }
+                },
+                {
+                    "name": "SurgicalProcedureType",
+                    "description": "Type surgical procedure",
+                    "data_type": "categorical", 
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Abdominal Surgery", "ECMO related", 
+								"Organ transplantation", "Orthopaedic Surgery", 
+								"Respiratory Procedure", "Superficial Surgery", 
+								"Thoracic or Cardiovascular Surgery", "Urology Procedure"]
+						}
+                    }
+                },
+                {
+                    "name": "CatheterAccessChanged",
+                    "description": "Catheter access changed: Yes/No",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "CircuitChangedInTheLast24Hours",
+                    "description": "Circuit change in 24 hours: Yes/No",
+                    "data_type": "categorical", 
+                    "transformation": {
+                        "transformation_type": "binarize",
+                        "options": {
+                            "binarize_map": {"Yes": 1, "No": 0},
+							"accepted_values": ["Yes", "No"]
+                        }
+                    }
+                },
+                {
+                    "name": "AnticoagulationType",
+                    "description": "Anticoagulation Type: Heparin, Citrate, None, Other",
+                    "data_type": "categorical", 
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Citrate", "Heparin", "None", "Other"]
+						}
+                    }
+                },
+                {
+                    "name": "AnticoagulationMetrics",
+                    "description": "Anticoagulation Metrics: ACT, APTT, Post filter CA, None",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["ACT", "APTT", "Post filter CA", "None"]	
+						}
+                    }
+                },
+                {
+                    "name": "HeparinDose",
+                    "description": "Heparin dose (units/hour)",
+                    "data_type": "numerical"
+                },
+                {
+                    "name": "CitrateSelection",
+                    "description": "Citrate selection: ACD-A, Tri-sodium citrate, Prismacitrate, Other",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["ACD-A", "Tri-sodium citrate", "Prismacitrate", "Other"]
+						}
+                    }
+                },
+                {
+                    "name": "CitrateDose",
+                    "description": "Citrate dose (mils/hour)",
+                    "data_type": "numerical"
+                },
+                {
+                    "name": "ReplacementFluidDelivery",
+                    "description": "Replacement fluid type: Predilution, Postdilution, None ",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["None", "Post-dilution", "Predilution"]
+						}
+                    }
+                },
+                {
+                    "name": "ReplacementFluidDeliveryPreDilution",
+                    "description": "Predilution fluid",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Nxstage", "Phoxillum", "Prismacal", "Prismasate", 
+								"Prismasol", "PrismOcal", "Other"]
+						}	
+                    }
+                },
+                {
+                    "name": "ReplacementFluidDeliveryPostDilution",
+                    "description": "Postdilution fluid",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "one_hot",
+						"options": {
+							"accepted_values": ["Normal Saline", "Nxstage", "Phoxillum", 
+								"Prismasate", "Prismasol", "PrismOcal", "Other"]
+						}
+                    }
+                },
+                {
+                    "name": "ReplacementFluidAdditives",
+                    "description": "Additives replacement fluid",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "multi_select",
+						"options": {
+							"accepted_values": ["Bicarbonate_HCO3", "Calcium", 
+								"Calcium Phosphate", "Magnesium", "Phoxillum", 
+								"Potassium Chloride", "Sodium Phosphate", "None", "Other"]
+						}
+						
+                    }
+                },
+                {
+                    "name": "ReplacementFluidRate",
+                    "description": "Patient fluid removal rate (L/hour)",
+                    "data_type": "numerical"
+                },
+                {
+                    "name": "DialysateFluidAdditives",
+                    "description": "Additives dialysate fluid",
+                    "data_type": "categorical",
+                    "transformation": {
+                        "transformation_type": "multi_select",
+						"options": {
+							"accepted_values": ["Bicarbonate_HCO3", "Calcium", 
+								"Calcium Phosphate", "Magnesium",
+								"Potassium Chloride", "Sodium Phosphate", "None", "Other"]
+						}
+                    }
+                },
+                {
+                    "name": "DialysateFluidRate_adj",
+                    "description": "Dialysate fluid rate (L/hour)",
+                    "data_type": "numerical",
+					"daily_aggregation": ["mean"]
+                },
+                {
+                    "name": "PatientFluidRemovalRate_adj",
+                    "description": "Patient fluid removal rate (L/hour)",
+                    "data_type": "numerical"
+                },
+                {
+                    "name": "PrescriptionDose",
+                    "description": "Prescription dose (mL/kg/hour)",
+                    "data_type": "numerical"
+                }
+			]
+		},
+		{
+			"dataset": "calculated_variables",
+			"description": "All calculated variables used from values within the dataset.",
+			"variables": [
+				{
+					"name": "Received_Norepinephrine",
+					"description": "Yes/No patient receives norepinephrine",
+					"mode": "all",
+					"inputs": ["NorepinephrineDripRate_adj_mean"],
+					"transformation": {
+						"type": "rule",
+						"rules": [
+							{
+								"condition": {"gt": 0},
+								"action": {"type": "set", "value": 1}
+							},
+							{
+								"condition": {"le": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					}
+				},
+				{
+					"name": "Received_Vasopressin",
+					"description": "Yes/No patient receives vasopressin",
+					"mode": "all",
+					"inputs": ["VasopressinDripRate_adj_mean"],
+					"transformation": {
+						"type": "rule",
+						"rules": [
+							{
+								"condition": {"gt": 0},
+								"action": {"type": "set", "value": 1}
+							},
+							{
+								"condition": {"le": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					}
+				},
+				{
+					"name": "Received_Epinephrine",
+					"description": "Yes/No patient receives epinephrine",
+					"mode": "all",
+					"inputs": ["EpinephrineDripRate_adj_mean"],
+					"transformation": {
+						"type": "rule",
+						"rules": [
+							{
+								"condition": {"gt": 0},
+								"action": {"type": "set", "value": 1}
+							},
+							{
+								"condition": {"le": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					}
+				},
+				{
+					"name": "Received_Phenylephrine",
+					"description": "Yes/No patient receives phenylephrine",
+					"mode": "all",
+					"inputs": ["PhenylephrineDripRate_adj_mean"],
+					"transformation": {
+						"type": "rule",
+						"rules": [
+							{
+								"condition": {"gt": 0},
+								"action": {"type": "set", "value": 1}
+							},
+							{
+								"condition": {"le": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					}
+				},
+				{
+					"name": "Received_Milrinone",
+					"description": "Yes/No patient receives milrinone",
+					"mode": "all",
+					"inputs": ["MilrinoneDripRate_adj_mean"],
+					"transformation": {
+						"type": "rule",
+						"rules": [
+							{
+								"condition": {"gt": 0},
+								"action": {"type": "set", "value": 1}
+							},
+							{
+								"condition": {"le": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					}
+				},
+				{
+					"name": "Received_Dobutamine",
+					"description": "Yes/No patient receives dobutamine",
+					"mode": "all",
+					"inputs": ["DobutamineDripRate_adj_mean"],
+					"transformation": {
+						"type": "rule",
+						"rules": [
+							{
+								"condition": {"gt": 0},
+								"action": {"type": "set", "value": 1}
+							},
+							{
+								"condition": {"le": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					}
+				},
+				{
+					"name": "Received_Dopamine",
+					"description": "Yes/No patient receives dopamine",
+					"mode": "all",
+					"inputs":["DopamineDripRate_adj_mean"],
+					"transformation": {
+						"type": "rule",
+						"rules": [
+							{
+								"condition": {"gt": 0},
+								"action": {"type": "set", "value": 1}
+							},
+							{
+								"condition": {"le": 0},
+								"action": {"type": "set", "value": 0}
+							}
+						]
+					}
+				},
+				{
+					"name": "Received_Vasopressor",
+					"description": "If the patient received any vasopressor during the day",
+					"mode": "all",
+					"inputs": [
+						"Received_Norepinephrine", 
+						"Received_Vasopressin", 
+						"Received_Epinephrine",
+						"Received_Dobutamine", 
+						"Received_Dopamine", 
+						"Received_Milrinone", 
+						"Received_Phenylephrine"
+					],
+					"transformation": {
+						"type": "boolean_combine",
+						"combine_type": "any"
+					}
+				},
+				{
+					"name": "Vasopressor_TotalDose_mean",
+					"description": "The total dose of vasopressor.",
+					"mode": "all",
+					"inputs": [
+						"NorepinephrineDripRate_adj_mean",
+						"EpinephrineDripRate_adj_mean",
+						"DopamineDripRate_adj_mean",
+						"PhenylephrineDripRate_adj_mean",
+						"VasopressinDripRate_adj_mean"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "calc_arithmetic",
+						"coefficients": {
+							"NorepinephrineDripRate_adj_mean": 1.0,
+							"EpinephrineDripRate_adj_mean": 1.0,
+							"DopamineDripRate_adj_mean": 0.00666667,
+							"PhenylephrineDripRate_adj_mean": 0.1,
+							"VasopressinDripRate_adj_mean": 2.5
+						}
+					}
+				},
+				{
+					"name": "FluidOutput_Calculated",
+					"description": "Calculated fluid output.",
+					"mode": "all",
+					"inputs": [
+						"ChestTube", 
+						"Drained", 
+						"BloodLoss", 
+						"UrineOutput", 
+						"CrrtNetUF", 
+						"NasogastricOutput"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "calc_arithmetic",
+						"coefficients": {
+							"ChestTube": 1.0, 
+							"Drained": 1.0, 
+							"BloodLoss": 1.0, 
+							"UrineOutput": 1.0, 
+							"CrrtNetUF": 1.0, 
+							"NasogastricOutput": 1.0
+						}
+					}
+				},
+				{
+					"name": "OtherFluids_Calculated",
+					"description": "Fluid intake excluding enteral and parentaral intake",
+					"mode": "all",
+					"inputs": [
+						"BiologicFluidIntake",
+						"EnteralNutritional",
+						"ParenteralNutritional"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "calc_arithmetic",
+						"coefficients": {
+							"BiologicFluidIntake": 1,
+							"EnteralNutritional": -1,
+							"ParenteralNutritional": -1
+						}
+					}
+				},
+				{
+					"name": "FluidBalance_Calculated",
+					"description": "Fluid Balance = Total Intake - Total Output",
+					"mode": "all",
+					"inputs": ["BiologicFluidIntake", "FluidOutput_Calculated"],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "calc_arithmetic",
+						"coefficients": {
+							"BiologicFluidIntake": 1, 
+							"FluidOutput_Calculated": -1
+						}
+					}
+				},
+				{
+					"name": "FluidOverload_Calculated",
+					"description": "Fluid Overload (%) = Fluid Balance (L) / Body Weight (kg) * 100",
+					"mode": "all",
+					"inputs": [
+						"FluidBalance_Calculated",
+						"CrrtInitiationWeight_kg"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "calc_fluid_overload"
+					}
+				},
+				{
+					"name": "TotalFluidsInFromIcuToCrrtStart_liters_adj",
+					"description": "Calculated total fluids in from ICU to CRRT start",
+					"mode": "all",
+					"inputs": [
+						"BiologicFluidIntake"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "reference_sum",
+						"reference_time_start": "IcuAdmitDate",
+						"reference_time_end": "CrrtStartDate"
+					}
+				},
+				{
+					"name": "IcuAdmitCreatinineUs_mg_dL",
+					"description": "Creatinine at ICU start (has to be recorded before ICU start time)",
+					"mode": "all",
+					"inputs": ["Creatinine"],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "reference_closest",
+						"reference_time": "IcuAdmitDate"
+					}
+				},
+				{
+					"name": "SOFA_Total_complete",
+					"description": "SOFA score",
+					"mode": "all",
+					"inputs": [
+						"PaO2Us_mean",
+						"FiO2Us_mean",
+						"MechanicalVentilation",
+						"PlateletsUs_mean",
+						"NeuroGcs_mean",
+						"BilirubinUs_mean",
+						"MeanArterialPressure_mean",
+						"DobutamineDripRate_adj_mean",
+						"DopamineDripRate_adj_mean",
+						"EpinephrineDripRate_adj_mean",
+						"NorepinephrineDripRate_adj_mean",
+						"CreatinineUs_mean",
+						"UrineOutput"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "calc_sofa"
+					}
+				},
+				{
+					"name": "PatientBMI",
+					"description": "Patient BMI",
+					"mode": "train",
+					"inputs": [
+						"CrrtInitiationWeight_kg",
+						"PatientHeight"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "bmi"
+					}
+				},
+				{
+					"name": "CharlsonCoMorbidityScore",
+					"description": "Charlson Comorbidity Score",
+					"mode": "train",
+					"inputs": [
+						"DiabetesMellitus",
+						"MyocardialInfarction",
+						"PeripheralVascularDisease",
+						"Dementia",
+						"ChronicPulmonaryDisease",
+						"ConnectiveTissueDisease",
+						"CongestiveHeartFailure",
+						"PepticUlcerDisease",
+						"MildLiverDisease",
+						"Hemiplegia",
+						"ModerateOrSevereRenalDisease",
+						"DiabetesWithEndOrganDamage",
+						"AnyTumour",
+						"Leukemia",
+						"Lymphoma",
+						"ModerateOrSevereLiverDisease",
+						"MetastaticTumor",
+						"AIDS"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "charlson_comorbidity_score"
+					}
+				},
+				{
+					"name": "PercentFluidOverloadCrrtInitial",
+					"description": "Percent Fluid Overload at CRRT start",
+					"mode": "train",
+					"inputs": [
+						"FluidBalance_Calculated",
+						"CrrtInitiationWeight_kg"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "fluid_overload",
+						"reference_time": "CrrtStartDate"
+					}
+				},
+				{
+					"name": "Apache2_total",
+					"description": "APACHE2 Score at ICU admission",
+					"mode": "train",
+					"inputs": [
+						"PatientHistoryOrganInsufImmuno",
+						"Age",
+						"IcuAdmissionTemperature",
+						"MeanArterialPressure",
+						"pHUs_mean",
+						"HeartRate_mean",
+						"RespiratoryRate_mean",
+						"SodiumUs_mean",
+						"PotassiumUs_mean",
+						"CreatinineUs_mean",
+						"HematocritUs_mean",
+						"WhiteCellCountUs_mean",
+						"NeuroGcs_mean",
+						"FiO2Us_mean"
+					],
+					"transformation": {
+						"type": "formula",
+						"formula_name": "apache",
+						"reference_time": "IcuStartDate"
+					}
+				},
+				{
+					"name": "CvpCrrtStart_mmHg",
+					"description": "Central Venous Pressure at CRRT start",
+					"mode": "train",
+					"inputs": ["CentralVenousPressure_mean"],
+					"transformation": {
+						"type": "closest",
+						"reference_time": "CrrtStartDate"
+					}
+				},
+				{
+					"name": "TotalFluidsOutFromIcuToCrrtStart_liters_adj",
+					"description": "Total Fluids Out from ICU to CRRT start",
+					"mode": "train",
+					"inputs": ["FluidOutput_Calculated"],
+					"transformation": {
+						"type": "sum",
+						"reference_time": "CrrtStartDate"
+					}
+				}
+			]
+		}
+	]
+}
