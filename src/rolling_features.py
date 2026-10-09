@@ -12,6 +12,7 @@ from tsfresh.feature_extraction import feature_calculators as fc
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
 
+TRAIN_COLUMN_CATEGORY_FILE = PROJECT_DIR / "configs" / "train_column_category.csv"
 FINETUNE_COLUMN_CATEGORY_FILE = PROJECT_DIR / "configs" / "finetune_column_category.csv"
 OUTPUT_DIR = PROJECT_DIR / "data" / "outputs"
 TRANSFORMED_DATA_FILE = OUTPUT_DIR / "transformed_features.csv"
@@ -222,11 +223,15 @@ def main():
     if arg.mode in ["finetune", "predict"]:
         if not FINETUNE_COLUMN_CATEGORY_FILE.exists():
             raise FileNotFoundError(
-                "Unable to locate the column_category.csv file. Please verify that the project directory structure maintains the same."
+                "Unable to locate the finetune_column_category.csv file. Please verify that the project directory structure maintains the same."
             )
-        column_categories = pd.read_csv(FINETUNE_COLUMN_CATEGORY_FILE) # check if it exists
+        column_categories = pd.read_csv(FINETUNE_COLUMN_CATEGORY_FILE)
     elif arg.mode == "train":
-        pass
+        if not TRAIN_COLUMN_CATEGORY_FILE.exists():
+            raise FileNotFoundError(
+                "Unable to locate the train_column_category.csv file. Please verify that the project directory structure maintains the same."
+            )
+        column_categories = pd.read_csv(TRAIN_COLUMN_CATEGORY_FILE)
 
     # Fill any missing values based on column_categories
     static_cat_cols = column_categories[column_categories["category"] == "categorical_static"]["column_name"].to_list()
@@ -275,7 +280,15 @@ def main():
                 "Unable to locate the finetune_model_final_variables.csv. Please verify that the project directory structure maintains the same."
                 )
         final_feature_list = pd.read_csv(FINETUNE_FINAL_FEATURES_LIST)
-        final_featured[final_feature_list['column_name'].tolist()].to_csv(OUTPUT_DIR/"model_input.csv", index=False)
+        selected_columns = final_feature_list["column_name"].tolist()
+        model_input = final_featured[selected_columns].copy()
+    elif arg.mode == "train":
+        model_input = final_featured.copy()
+    
+    model_input.to_csv(
+        OUTPUT_DIR / "model_input.csv",
+        index=False
+    )
     
 if __name__ == "__main__":
     main()
