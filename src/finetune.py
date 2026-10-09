@@ -26,8 +26,8 @@ def parse_args():
 
     parser.add_argument("--base-model-path", required=True, type=Path, help="Path to base trained mode (.joblib)")
     parser.add_argument("--output-predictions-filename", required=True, type=Path)
-    parser.add_argument("--seed", default=42)
-    parser.add_argument("--n-iter-sampler", default=50)
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--n-iter-sampler", type=int, default=50)
     return parser.parse_args()
 
 def clean_booster_for_finetuning(base_model):
@@ -263,7 +263,7 @@ def main():
         X_train,
         y_train,
         verbose=False,
-        xgb_model=clean_booster_for_finetuning(model),
+        xgb_model=clean_booster_for_finetuning(base_model),
     )
 
     # Predict on held-out test split
