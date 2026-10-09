@@ -44,11 +44,11 @@ def apply_fill_policy(series, policy, df=None, group_col=None):
         else:
             filled = series.ffill().bfill()
         
-        if filled.isna().any():
-            fallback = series.median()
-            if pd.isna(fallback):
-                fallback = 0
-            filled = filled.fillna(fallback)
+        # if filled.isna().any():
+        #     fallback = series.median()
+        #     if pd.isna(fallback):
+        #         fallback = 0
+        #     filled = filled.fillna(fallback)
         return filled
     
     if policy == "ffill":
@@ -166,7 +166,7 @@ def roll_and_extract_tsfresh_mixed(
         disable_progressbar=True,
         n_jobs=n_jobs,
     )
-    feats_numeric = impute(feats_numeric)
+    # feats_numeric = impute(feats_numeric)
 
     out_numeric = feats_numeric.reset_index()
     if "level_0" in out_numeric.columns:
@@ -191,7 +191,7 @@ def roll_and_extract_tsfresh_mixed(
         disable_progressbar=True,
         n_jobs=n_jobs,
     )
-    feats_categorical = impute(feats_categorical)
+    # feats_categorical = impute(feats_categorical)
 
     out_categorical = feats_categorical.reset_index()
     if "level_0" in out_categorical.columns: 

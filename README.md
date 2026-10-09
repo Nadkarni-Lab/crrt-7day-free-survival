@@ -40,3 +40,22 @@ Read `preprocessing_instructions.md` within `docs/` for **feature** pre-processi
 
 ### Date Standardization
 All timestamps were standardized to calendar dates by removing the time component to ensure consistency across the dataset. For example, a CRRT initiation timestamp of May 5, 12:30 was recorded as May 5 (May 5 00:00). This standardization was applied consistently across all patients and data sources.
+
+## Training a New Model
+
+The training pipeline supports developing a new temporal XGBoost model using a researcher's own dataset.
+
+The workflow consists of:
+
+* Preprocessing: Standardize clinical variables and generate rolling-window features.
+* Feature Selection: Rank candidate features using minimum Redundancy Maximum Relevance (mRMR). Compare model performance across different feature counts using a patient-level stratified 80/20 train/test split.
+* Manual Feature Selection: Review the feature-selection results and choose the preferred number of features.
+* Model Training: Perform Optuna hyperparameter optimization using five-fold stratified group cross-validation within the training partition, followed by final XGBoost model training.
+
+More detailed instructions exist within `docs/training_instructions.md`.
+
+## Fine-Tuning the Pretrained CRRTnet Model
+
+The repository also supports fine-tuning the pretrained CRRTnet model on an external dataset.
+
+Before fine-tuning, complete the preprocessing and rolling-window feature extraction steps described in Preprocessing Instructions. See more detailed instructions within `docs/finetuning_instructions.md`

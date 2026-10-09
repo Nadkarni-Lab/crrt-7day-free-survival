@@ -106,4 +106,4 @@ The prediction file contains:
 - `prob`: predicted probability of the outcome.
 
 ## Next Steps
-Once fine-tuning has completed successfully, use the held-out predictions to evaluate the performance of the fine-tuned CRRTnet model at your center.
+Once fine-tuning has completed successfully, use the held-out predictions to evaluate the performance of the fine-tuned CRRTnet model at your center. You can complete this by using the `predict.py` file. It will generate the results as well as some relevant visualizations.
