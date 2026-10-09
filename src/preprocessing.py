@@ -498,6 +498,8 @@ def apply_transform(df, column, mapping_info, config, reference, delimiter):
                 config=config,
                 reference=reference,
             )
+        elif transform_type in ["none", None]:
+            pass
         else:
             raise ValueError(f"Unsupported transformation type: {transform_type}")
 
